@@ -22,11 +22,12 @@ public class Main {
 
         //расчёты с шаблоном Facade
         String sum = bins.sum(firstBinary, secondBinary);
-        System.out.printf("\n\"%d+%d=%d\" \tв бинарном виде: %s\n", a, b, (a + b), normalBinary(sum));
+        System.out.printf("\n\"%d+%d = %d\"\tв бинарном виде: %s\n", a, b, (a + b), normalBinary(sum));
         String mult = bins.mult(firstBinary, secondBinary);
-        System.out.printf("\"%d*%d=%d\" \tв бинарном виде: %s\n", a, b, (a * b), normalBinary(mult));
+        System.out.printf("\"%d*%d=%d\"\tв бинарном виде: %s\n", a, b, (a * b), normalBinary(mult));
     }
 
+    //Нормализуем длину строки кратно 4
     private static String normalBinary(String str) {
         while (str.length() % 4 != 0) {
             StringBuilder strBins = new StringBuilder();
@@ -34,6 +35,21 @@ public class Main {
             strBins.append(str);
             str = String.valueOf(strBins);
         }
-        return str;
+        return splitBinary(str);
+    }
+
+    //делим строку по 4 символа
+    private static String splitBinary(String str) {
+        char[] array = str.toCharArray();
+        StringBuilder strBins = new StringBuilder();
+        int cut = 0;
+        for (int i = 0; i < str.length(); i++) {
+            if ((strBins.length() - cut) % 4 == 0 && strBins.length() != 0) {
+                strBins.append(' ');
+                cut++;
+            }
+            strBins.append(array[i]);
+        }
+        return String.valueOf(strBins);
     }
 }
